@@ -1,0 +1,21 @@
+body {
+    margin-top: 20px;
+}
+
+.link-to-page {
+    float: right;
+    margin: 0 2px 0 2px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse; /* Merge borders */
+}
+th, td {
+    border: 1px solid #ddd; /* Add border to cells */
+    padding: 8px; /* Add padding */
+    text-align: left; /* Align text to the left */
+}
+th {
+    background-color: #f2f2f2; /* Light gray background for header */
+}

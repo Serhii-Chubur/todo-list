@@ -3,18 +3,42 @@
 
 {% block content %}
   <h1>TODO list
-    <a style="float: right" href="{% url 'task_tracker:task-create' %}" class="btn btn-primary link-to-page">Create task</a>
+    <a style="float: right" href="{% url 'task_tracker:task-create' %}" class="btn btn-success link-to-page">Create task</a>
   </h1>
-<ul>
+<ul style="list-style-type:none">
   {% for task in tasks %}
-  <li>{{ task }} 
-  <span>User Date: {{ user.date_joined }}</span>
-  <span>Task Deadline: {{ task.deadline }}</span>
-  {% if task.deadline > user.date_joined %}
-  <span style="color: red">Task Deadline: {{ task.deadline }}</span>
-  {% else %}
-  <span style="color: green">Task Deadline: {{ task.deadline }}</span>
-  {% endif %}
+  <li><span style="font-weight: bold; font-size: large">
+    {{ task }}
+    {% if task.is_done %}
+    <span style="color: green">Done</span>
+    <form action="{% url 'task_tracker:task-undo' task.pk %}" method="post">
+      {% csrf_token %}
+      <input type="submit" value="Undo" class="btn btn-info link-to-page">
+    </form>
+    {% else %}
+    <span style="color: red">Not done</span>
+    <form action="{% url 'task_tracker:task-complete' task.pk %}" method="post">
+      {% csrf_token %}
+      <input type="submit" value="Complete" class="btn btn-primary link-to-page">
+    </form>
+    {% endif %}
+
+  </span><br>
+
+    <span style="font-size: small">Created: {{ task.created_at }}<br>
+    Task Deadline: {{ task.deadline }}</span><br>
+    <span style="color: slategrey">Tags:
+    {% for tag in task.tags.all %}
+        #{{ tag.name }}
+    {% endfor %}</span><br><br>
+  <a class="btn btn-primary" href="{% url 'task_tracker:task-update' task.pk%}">Update</a><br><br>
+  <form action="{% url 'task_tracker:task-delete' task.pk %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete" class="btn btn-danger">
+  </form>
+    <br><br>
+
+
 </li>
   {% endfor %}
 </ul>
