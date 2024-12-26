@@ -11,8 +11,9 @@ class TaskCreationForm(forms.ModelForm):
                    'deadline': forms.DateInput(
                        attrs={'type': 'date',
                               'class': 'form-control',
-                              'placeholder': 'Select a date',},
+                              'placeholder': 'Select a date'},
                    )}
+
 
 class TagCreationForm(forms.ModelForm):
     class Meta:

@@ -12,10 +12,12 @@ class IndexView(ListView):
     template_name = 'task_tracker/index.html'
     context_object_name = 'tasks'
 
+
 class TagListView(ListView):
     model = Tag
     context_object_name = 'tags'
     template_name = 'task_tracker/tag_list.html'
+
 
 class TaskCreateView(CreateView):
     model = Task
@@ -25,6 +27,7 @@ class TaskCreateView(CreateView):
     def get_success_url(self):
         return reverse('task_tracker:index')
 
+
 class TagCreateView(CreateView):
     model = Tag
     form_class = TagCreationForm
@@ -32,6 +35,7 @@ class TagCreateView(CreateView):
 
     def get_success_url(self):
         return reverse('task_tracker:tag-list')
+
 
 class TaskUpdateView(UpdateView):
     model = Task
@@ -48,6 +52,7 @@ class TaskDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse('task_tracker:index')
+
 
 class TagUpdateView(UpdateView):
     model = Tag
@@ -77,6 +82,7 @@ class TaskCompletedView(ListView):
         task.is_done = True
         task.save()
         return redirect("task_tracker:index")
+
 
 class TaskUndoView(ListView):
     model = Task
