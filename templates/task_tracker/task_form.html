@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <h1>Create task</h1>
+<form action="{% url 'task_tracker:task-create' %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+</form>
+{% endblock %}
